@@ -1,0 +1,110 @@
+<h1>02: Zapis / odczyt danych w bazie NeDB</h1>
+<div id="body">
+    <div id="left">
+        <h2>Dane pojazdu:</h2>
+        <form action="/dodaj" method="GET">
+            <table>
+                <tr>
+                    <td>ubezpieczony:</td>
+                    <td><input type="checkbox" name="ubezpieczony" value="Tak"></td>
+                </tr>
+                <tr>
+                    <td>benzyna:</td>
+                    <td><input type="checkbox" name="benzyna" value="Tak"></td>
+                </tr>
+                <tr>
+                    <td>uszkodzony:</td>
+                    <td><input type="checkbox" name="uszkodzony" value="Tak"></td>
+                </tr>
+                <tr>
+                    <td>napęd 4x4:</td>
+                    <td><input type="checkbox" name="naped4x4" value="Tak"></td>
+                </tr>
+            </table>
+            <input type="submit" value="Dodaj do bazy">
+        </form>
+    </div>
+    <div id="right">
+        <h2>Wszystkie pojazdy:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>ubezpieczony</td>
+                    <td>benzyna</td>
+                    <td>uszkodzony</td>
+                    <td>naped 4x4</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each pojazdy}}
+                {{#if edit}}
+                <tr>
+                    <form action="/updateCar" method="GET">
+                        <td>{{@index}}</td>
+                        <td>
+                            <select name="ubezpieczony" id="cars">
+                                <option value="Tak">Tak</option>
+                                <option value="Nie">Nie</option>
+                                <option value="Brak">Brak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="benzyna" id="cars">
+                                <option value="Tak">Tak</option>
+                                <option value="Nie">Nie</option>
+                                <option value="Brak">Brak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="uszkodzony" id="cars">
+                                <option value="Tak">Tak</option>
+                                <option value="Nie">Nie</option>
+                                <option value="Brak">Brak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="naped4x4" id="cars">
+                                <option value="Tak">Tak</option>
+                                <option value="Nie">Nie</option>
+                                <option value="Brak">Brak</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="pinkbtn" type="submit" value="{{_id}}" name="id">Update</button>
+                        </td>
+                    </form>
+                    <td>
+                        <form action="/editCar" method="GET">
+                            <button type="submit">Cancel</button>
+                        </form>
+                    </td>
+                </tr>
+
+                {{else}}
+                <tr>
+                    <td>{{@index}}</td>
+                    <td>{{ubezpieczony}}</td>
+                    <td>{{benzyna}}</td>
+                    <td>{{uszkodzony}}</td>
+                    <td>{{naped4x4}}</td>
+                    <td>
+                        <form action="/deleteCar" method="GET">
+                            <button class="redbtn" value="{{_id}}" name="id"
+                                onclick="return confirm('Na pewno usunąć element?')">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/editCar">
+                            <button type="submit" value="{{_id}}" name="id">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+                {{/if}}
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
